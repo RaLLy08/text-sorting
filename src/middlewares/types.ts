@@ -1,13 +1,3 @@
-// const mockMiddleware = jest.fn(
-//     <T>(arg: T): ((next: (arg: T) => void) => void) => {
-//       return (next) => {
-//         next(arg);
-//       };
-//     }
-// );
-    
-// const mockMiddleware = <T>(arg: T): (next: (arg: T) => void) => void => {
-//         return (next) => {
-//         next(arg);
-//     }
-// }
+export type MiddlewareClosuredType<T> = (next: (arg?: T) => void) => void;
+export type MiddlewareType<T> = (arg?: T) => MiddlewareClosuredType<T>;
+export type PipeType = (...fns: MiddlewareClosuredType<any>[]) => (initialValue?: any) => any;
