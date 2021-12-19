@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import './App.css'
+import AnimateText from './components/AnimateText'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div className="App">
-      <div className='field'></div>
+    <div className="wrapper">
+      <div className='field'>
+        <AnimateText frames={[]}/>
+
+      </div>
     </div>
   )
 }
