@@ -1,9 +1,7 @@
-import { useState } from 'react'
 import './App.css'
 import AnimateText from './components/AnimateText'
 
 function App() {
-
   return (
     <div className="wrapper">
       <div className='field'>
