@@ -1,10 +1,11 @@
+import { getRandomKey } from '../../utils/random';
 import { IndexedValueType, MiddlewareType } from './../types';
 
-type ShuffleTypes = 'random' | 'reverse';
+type ShuffleTypes = 'no_order' | 'reverse';
 
 
 const shuffles: Record<ShuffleTypes, (indexedValues: IndexedValueType[]) => IndexedValueType[]> = {
-    random: (indexedValues) => {
+    no_order: (indexedValues) => {
         const newState = [...indexedValues];
 
         newState.sort(() => Math.random() - 0.5);
@@ -17,12 +18,18 @@ const shuffles: Record<ShuffleTypes, (indexedValues: IndexedValueType[]) => Inde
         newState.reverse();
 
         return newState;
-    } 
+    }
+    // .. expand here
 }
 
-const shuffleIndexed: MiddlewareType<ShuffleTypes, IndexedValueType[], IndexedValueType[]> = (type = 'random') => {
+const shuffleIndexed: MiddlewareType<ShuffleTypes | 'random', IndexedValueType[], IndexedValueType[]> = (type = 'random') => {
     
     return (indexedValues) => {
+        if (type === 'random') {
+            const randomShuffleName = getRandomKey(shuffles);
+            
+            return shuffles[randomShuffleName](indexedValues)
+        }
 
         return shuffles[type](indexedValues)
     }

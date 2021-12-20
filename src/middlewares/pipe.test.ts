@@ -1,5 +1,5 @@
 import { MiddlewareClosuredType } from './types';
-import getRandomValue from "utils/random";
+import { getRandomValue } from "utils/random";
 import pipe from "./pipe";
 
 describe('pipe middleware', () => {
