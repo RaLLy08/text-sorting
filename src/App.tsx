@@ -1,6 +1,6 @@
-import pipe from './text-handlers/pipe/pipe';
-import shuffleIndexed from './text-handlers/operators/shuffle-indexed/shuffleIndexed';
-import textToIndexed from './text-handlers/operators/text-to-indexed/textToIndexed';
+import pipe from './operators/pipe';
+import shuffleIndexed from './text-handlers/shuffle-indexed/shuffleIndexed';
+import textToIndexed from './text-handlers/text-to-indexed/textToIndexed';
 import './App.css'
 import AnimateText from './components/AnimateText'
 

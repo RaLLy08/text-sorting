@@ -1,5 +1,5 @@
-import { getRandomKey } from '../../../utils/random';
-import { IndexedValueType, OperatorType } from '../../types';
+import { getRandomKey } from '../../utils/random';
+import { IndexedValueType, OperatorType } from '../../operators/types';
 
 type ShuffleTypes = 'no_order' | 'reverse';
 
@@ -36,3 +36,4 @@ const shuffleIndexed: OperatorType<ShuffleTypes | 'random', IndexedValueType[], 
 }
 
 export default shuffleIndexed;
+// carried

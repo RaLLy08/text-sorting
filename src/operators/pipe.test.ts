@@ -1,4 +1,4 @@
-import { OperatorClosuredType } from '../types';
+import { OperatorClosuredType } from './types';
 import { getRandomValue } from "utils/random";
 import pipe from "./pipe";
 
