@@ -1,5 +1,5 @@
-import { getRandomKey } from '../../utils/random';
-import { IndexedValueType, MiddlewareType } from './../types';
+import { getRandomKey } from '../../../utils/random';
+import { IndexedValueType, OperatorType } from '../../types';
 
 type ShuffleTypes = 'no_order' | 'reverse';
 
@@ -22,7 +22,7 @@ const shuffles: Record<ShuffleTypes, (indexedValues: IndexedValueType[]) => Inde
     // .. expand here
 }
 
-const shuffleIndexed: MiddlewareType<ShuffleTypes | 'random', IndexedValueType[], IndexedValueType[]> = (type = 'random') => {
+const shuffleIndexed: OperatorType<ShuffleTypes | 'random', IndexedValueType[], IndexedValueType[]> = (type = 'random') => {
     
     return (indexedValues) => {
         if (type === 'random') {

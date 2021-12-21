@@ -1,9 +1,9 @@
-import { IndexedValueType, MiddlewareType } from './../types';
+import { IndexedValueType, OperatorType } from '../../types';
 
 type splitFnType = (value: string, index: number, str: string) => boolean | number; 
 
 
-const textToIndexed: MiddlewareType<splitFnType, string, IndexedValueType[]> = (splitFn = () => true) => {
+const textToIndexed: OperatorType<splitFnType, string, IndexedValueType[]> = (splitFn = () => true) => {
     
     return (str) => {
         class Indexed implements IndexedValueType {

@@ -1,8 +1,8 @@
-import { MiddlewareClosuredType } from './types';
+import { OperatorClosuredType } from '../types';
 import { getRandomValue } from "utils/random";
 import pipe from "./pipe";
 
-describe('pipe middleware', () => {
+describe('pipe operator', () => {
     test('should call 0-50 passed functions ', () => {
         const mockFn = jest.fn(() => {})
         const randomLength = getRandomValue(50);
@@ -15,14 +15,14 @@ describe('pipe middleware', () => {
         expect(mockFn.mock.calls.length).toBe(randomLength);
     })
     
-    test('middlewares should transfer value from first to end and will give last as result', () => { 
-        const middlewareClosured: MiddlewareClosuredType<string, string> = (arg) => arg;
+    test('operators should transfer value from first to end and will give last as result', () => { 
+        const operatorClosured: OperatorClosuredType<string, string> = (arg) => arg;
         const initialValue = 'mock';
 
         const result = pipe(
-            middlewareClosured,
-            middlewareClosured,
-            middlewareClosured,
+            operatorClosured,
+            operatorClosured,
+            operatorClosured,
         )(initialValue);
 
         expect(result).toBe(initialValue);
