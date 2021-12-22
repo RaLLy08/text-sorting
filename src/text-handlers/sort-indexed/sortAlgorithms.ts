@@ -1,21 +1,28 @@
 import { IndexedValueType } from '../types';
 
-export interface SortingGeneratorInterface<T = Array<IndexedValueType>, TReturn = Array<IndexedValueType>, TNext = Array<IndexedValueType>> extends Iterator<T, TReturn, TNext> {
+export interface ISortingAlgorithms {
+    bubble: (indexedValues: IndexedValueType[], stepPoint?: BubbleStepPointType) => ISortingGenerator,
+    selection: (indexedValues: IndexedValueType[], stepPoint?: SelectionStepPointType) => ISortingGenerator,
+}
+
+const sortings: ISortingAlgorithms = {
+    bubble,
+    selection,
+}
+
+export interface ISortingGenerator<T = Array<IndexedValueType>, TReturn = Array<IndexedValueType>, TNext = Array<IndexedValueType>> extends Iterator<T, TReturn, TNext> {
     next(...args: [] | [TNext]): IteratorResult<T, TReturn>;
     return(value: TReturn): IteratorResult<T, TReturn>;
     throw(e: any): IteratorResult<T, TReturn>;
     [Symbol.iterator](): Generator<T, TReturn, TNext>;
 }
 
-export type StepPointType = 
+export type BubbleStepPointType =     
     | 'n'
     | 'n^2'
     | 'n^2&swap';
 
-
-export type BubbleStepPointType = StepPointType;
-
-export function* bubble(array: Array<IndexedValueType>, stepPoint: BubbleStepPointType = 'n'): SortingGeneratorInterface {
+function* bubble(array: Array<IndexedValueType>, stepPoint: BubbleStepPointType = 'n'): ISortingGenerator {
     const newState = [...array];
     let swapped;
 
@@ -39,9 +46,12 @@ export function* bubble(array: Array<IndexedValueType>, stepPoint: BubbleStepPoi
     return newState;
 }
 
-export type SelectionStepPointType = StepPointType;
+export type SelectionStepPointType = 
+    | 'n'
+    | 'n^2'
+    | 'n^2&swap';
 
-export function* selection(array: Array<IndexedValueType>, stepPoint: SelectionStepPointType = 'n'): SortingGeneratorInterface {
+function* selection(array: Array<IndexedValueType>, stepPoint: SelectionStepPointType = 'n'): ISortingGenerator {
     const newState = [...array];
 
     for (let i = 0; i < newState.length; i++) {
@@ -59,3 +69,5 @@ export function* selection(array: Array<IndexedValueType>, stepPoint: SelectionS
     }
     return newState;
 }
+
+export default sortings;

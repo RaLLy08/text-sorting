@@ -3,7 +3,7 @@ import pipe from './operators/pipe';
 import shuffleIndexed from './text-handlers/shuffle-indexed/shuffleIndexed';
 import textToIndexed from './text-handlers/text-to-indexed/textToIndexed';
 import AnimateText from './components/AnimateText'
-import sortIndexed from 'text-handlers/sort-indexed/sortIndexed';
+import sortIndexed from './text-handlers/sort-indexed/sortIndexed';
 
 function App() {
   pipe(
