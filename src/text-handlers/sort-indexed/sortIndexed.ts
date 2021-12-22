@@ -1,8 +1,9 @@
-import { getRandomKey } from 'utils/random';
-import { OperatorType } from '../../operators/types'; // must be removed
+import { getRandomKey } from '../../utils/random';
+import { firstArgCurrying } from './../../operators/firstArgCurrying';
 import { IndexedValueType } from '../types';
 
 type SortTypes = 'bubble'
+type SortTypesProp = SortTypes | 'random';
 
 const sortings: Record<SortTypes, (indexedValues: IndexedValueType[]) => IndexedValueType[]> = {
     bubble: (indevedValues) => {
@@ -10,15 +11,14 @@ const sortings: Record<SortTypes, (indexedValues: IndexedValueType[]) => Indexed
     }
 }
 
-const sortIndexed: OperatorType<SortTypes | 'random', IndexedValueType[], IndexedValueType[]> = (type = 'random') => {
-    
-    return (indexedValues) => {
-        if (type === 'random') {
-            const randomSortingName = getRandomKey(sortings);
+const sortIndexed = (indexedValues: IndexedValueType[], type: SortTypesProp = 'random') => {
+    if (type === 'random') {
+        const randomSortingName = getRandomKey(sortings);
             
-            return sortings[randomSortingName](indexedValues)
-        }
-
-        return sortings[type](indexedValues)
+        return sortings[randomSortingName](indexedValues)
     }
+
+    return sortings[type](indexedValues)
 }
+
+export default firstArgCurrying<IndexedValueType[], [SortTypesProp?]>(sortIndexed);

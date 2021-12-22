@@ -1,8 +1,10 @@
+import { firstArgCurrying } from '../../operators/firstArgCurrying';
+import { IndexedValueType } from '../types';
 import { getRandomKey } from '../../utils/random';
-import { IndexedValueType, OperatorType } from '../../operators/types';
 
 type ShuffleTypes = 'no_order' | 'reverse';
 
+type ShuffleTypesProp = ShuffleTypes | 'random';
 
 const shuffles: Record<ShuffleTypes, (indexedValues: IndexedValueType[]) => IndexedValueType[]> = {
     no_order: (indexedValues) => {
@@ -22,18 +24,14 @@ const shuffles: Record<ShuffleTypes, (indexedValues: IndexedValueType[]) => Inde
     // .. expand here
 }
 
-const shuffleIndexed: OperatorType<ShuffleTypes | 'random', IndexedValueType[], IndexedValueType[]> = (type = 'random') => {
-    
-    return (indexedValues) => {
-        if (type === 'random') {
-            const randomShuffleName = getRandomKey(shuffles);
-            
-            return shuffles[randomShuffleName](indexedValues)
-        }
-
-        return shuffles[type](indexedValues)
+const shuffleIndexed = (indexedValues: IndexedValueType[], type: ShuffleTypesProp = 'random') => {
+    if (type === 'random') {
+        const randomShuffleName = getRandomKey(shuffles);
+        
+        return shuffles[randomShuffleName](indexedValues)
     }
+
+    return shuffles[type](indexedValues)
 }
 
-export default shuffleIndexed;
-// carried
+export default firstArgCurrying<IndexedValueType[], [ShuffleTypesProp?]>(shuffleIndexed);
