@@ -5,6 +5,7 @@ import sortings from './sortAlgorithms';
 
 type SortTypesProp = keyof typeof sortings | 'random';
 
+type SortIndexedTypes = (indexedValues: IndexedValueType[], type?: SortTypesProp) => IndexedValueType[]
 
 const sortIndexed = (indexedValues: IndexedValueType[], type: SortTypesProp = 'random') => {
 
@@ -17,4 +18,8 @@ const sortIndexed = (indexedValues: IndexedValueType[], type: SortTypesProp = 'r
     return sortings[type](indexedValues)
 }
 
-export default firstArgCurrying<IndexedValueType[], [SortTypesProp?]>(sortIndexed);
+const stepSorting = () => {
+
+}
+
+export default firstArgCurrying(sortIndexed);

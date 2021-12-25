@@ -34,4 +34,4 @@ const shuffleIndexed = (indexedValues: IndexedValueType[], type: ShuffleTypesPro
     return shuffles[type](indexedValues)
 }
 
-export default firstArgCurrying<IndexedValueType[], [ShuffleTypesProp?]>(shuffleIndexed);
+export default firstArgCurrying(shuffleIndexed);

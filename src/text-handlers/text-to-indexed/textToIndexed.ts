@@ -25,4 +25,4 @@ const textToIndexed = (str: string, splitFn: splitFnType = () => true) => {
     return chunks;
 }
 
-export default firstArgCurrying<string, [splitFnType?]>(textToIndexed);
+export default firstArgCurrying(textToIndexed);
