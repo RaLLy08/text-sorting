@@ -1,4 +1,3 @@
-import { OperatorClosuredType } from './types';
 import { getRandomValue } from "utils/random";
 import pipe from "./pipe";
 
@@ -16,7 +15,7 @@ describe('pipe operator', () => {
     })
     
     test('operators should transfer value from first to end and will give last as result', () => { 
-        const operatorClosured: OperatorClosuredType<string, string> = (arg) => arg;
+        const operatorClosured = (arg: string): string => arg;
         const initialValue = 'mock';
 
         const result = pipe(
