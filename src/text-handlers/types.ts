@@ -1,4 +1,4 @@
 export type IndexedValueType = {
-    value: string,
-    index: number
+    readonly value: string,
+    readonly index: number
 }

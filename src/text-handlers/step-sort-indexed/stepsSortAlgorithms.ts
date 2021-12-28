@@ -1,8 +1,8 @@
 import { IndexedValueType } from '../types';
 
 export interface ISortingAlgorithms {
-    bubble: (indexedValues: IndexedValueType[], stepPoint?: BubbleStepPointType) => ISortingGenerator,
-    selection: (indexedValues: IndexedValueType[], stepPoint?: SelectionStepPointType) => ISortingGenerator,
+    bubble: (indexedValues: IndexedValueType[], stepPoint?: BubbleStepPointType) => Array<IndexedValueType[]>,
+    selection: (indexedValues: IndexedValueType[], stepPoint?: SelectionStepPointType) => IndexedValueType[],
 }
 
 const sortings: ISortingAlgorithms = {
@@ -10,20 +10,15 @@ const sortings: ISortingAlgorithms = {
     selection,
 }
 
-export interface ISortingGenerator<T = Array<IndexedValueType>, TReturn = Array<IndexedValueType>, TNext = Array<IndexedValueType>> extends Iterator<T, TReturn, TNext> {
-    next(...args: [] | [TNext]): IteratorResult<T, TReturn>;
-    return(value: TReturn): IteratorResult<T, TReturn>;
-    throw(e: any): IteratorResult<T, TReturn>;
-    [Symbol.iterator](): Generator<T, TReturn, TNext>;
-}
-
 export type BubbleStepPointType =     
     | 'n'
     | 'n^2'
     | 'n^2&swap';
 
-function* bubble(array: Array<IndexedValueType>, stepPoint: BubbleStepPointType = 'n'): ISortingGenerator {
+function bubble(array: Array<IndexedValueType>, stepPoint: BubbleStepPointType = 'n'): Array<IndexedValueType[]> {
     const newState = [...array];
+    const toSteps: Array<IndexedValueType[]> = [];
+
     let swapped;
 
     while (!swapped) {
@@ -34,16 +29,16 @@ function* bubble(array: Array<IndexedValueType>, stepPoint: BubbleStepPointType 
                 [ newState[i], newState[i + 1] ] = [ newState[i + 1], newState[i] ];
                 swapped = false;
                 
-                if (stepPoint === 'n^2&swap') yield [...newState];
+                if (stepPoint === 'n^2&swap') toSteps.push([...newState]);
             }
 
-            if (stepPoint === 'n^2') yield [...newState];
+            if (stepPoint === 'n^2') toSteps.push([...newState]);
         }
 
-        if (stepPoint === 'n') yield [...newState];
+        if (stepPoint === 'n') toSteps.push([...newState]);
     }
 
-    return newState;
+    return toSteps;
 }
 
 export type SelectionStepPointType = 
@@ -51,7 +46,7 @@ export type SelectionStepPointType =
     | 'n^2'
     | 'n^2&swap';
 
-function* selection(array: Array<IndexedValueType>, stepPoint: SelectionStepPointType = 'n'): ISortingGenerator {
+function* selection(array: Array<IndexedValueType>, stepPoint: SelectionStepPointType = 'n'): IndexedValueType[] {
     const newState = [...array];
 
     for (let i = 0; i < newState.length; i++) {

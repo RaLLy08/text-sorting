@@ -3,16 +3,20 @@ import pipe from './operators/pipe';
 import shuffleIndexed from './text-handlers/shuffle-indexed/shuffleIndexed';
 import textToIndexed from './text-handlers/text-to-indexed/textToIndexed';
 import AnimateText from './components/AnimateText'
-import sortIndexed from './text-handlers/sort-indexed/sortIndexed';
+import stepSortIndexed from './text-handlers/step-sort-indexed/stepSortIndexed';
 
 function App() {
-  pipe(
-    textToIndexed((_, i) => {
-      return (i + 1) % 2;
-    }),
+  console.log(pipe(
+    textToIndexed(),
     shuffleIndexed('reverse'),
-    sortIndexed('bubble')
-  )("abcd");
+    stepSortIndexed('bubble')
+    // pipe(
+    //   bubbleStepSort()
+    //   stepSortToIndexed(fn)
+    // )
+    // sortIndexed('bubble')
+  )('abc'));
+  
 
 
   return (
