@@ -3,26 +3,45 @@ import pipe from './operators/pipe';
 import shuffleIndexed from './text-handlers/shuffle-indexed/shuffleIndexed';
 import textToIndexed from './text-handlers/text-to-indexed/textToIndexed';
 import AnimateText from './components/AnimateText'
-import stepSortIndexed from './text-handlers/step-sort-indexed/stepSortIndexed';
+import stepSortIndexed from './generators/step-sort-indexed/stepSortIndexed';
+import generatorPipe from './operators/generatorPipe';
+
+const indexedToString = (indexed) => {
+  return indexed.map(el => el.value).join('')
+}
+const mockIndexed = [{
+  value: 'c',
+  index: 2,
+},
+{
+  value: 'b',
+  index: 1,
+},
+{
+  value: 'a',
+  index: 0,
+}]
 
 function App() {
-  console.log(pipe(
+  const generatorChain = pipe(
     textToIndexed(),
     shuffleIndexed('reverse'),
-    stepSortIndexed('bubble')
-    // pipe(
-    //   bubbleStepSort()
-    //   stepSortToIndexed(fn)
-    // )
-    // sortIndexed('bubble')
-  )('abc'));
-  
-
+    generatorPipe(
+      stepSortIndexed('bubble')
+    )
+  )('hello how are you?');
 
   return (
     <div className="wrapper">
       <div className='field'>
-        <AnimateText frames={[]}/>
+        <AnimateText frameDelay={100} onNextFrame={() => {
+          const result = generatorChain.next();
+
+          if (result.done) return;
+          
+          return indexedToString(result.value)
+
+        }}/>
 
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { firstArgCurrying } from '../../operators/firstArgCurrying';
-import { IndexedValueType } from '../types';
+import { IndexedValueType } from '../../types';
 import { getRandomKey } from '../../utils/random';
 
 type ShuffleTypes = 'no_order' | 'reverse';

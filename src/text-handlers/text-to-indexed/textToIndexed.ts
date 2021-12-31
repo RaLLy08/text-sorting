@@ -1,5 +1,5 @@
 import { firstArgCurrying } from '../../operators/firstArgCurrying';
-import { IndexedValueType } from '../types';
+import { IndexedValueType } from '../../types';
 
 type splitFnType = (value: string, index: number, str: string) => boolean | number; 
 
