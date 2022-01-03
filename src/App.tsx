@@ -9,18 +9,7 @@ import generatorPipe from './operators/generatorPipe';
 const indexedToString = (indexed) => {
   return indexed.map(el => el.value).join('')
 }
-const mockIndexed = [{
-  value: 'c',
-  index: 2,
-},
-{
-  value: 'b',
-  index: 1,
-},
-{
-  value: 'a',
-  index: 0,
-}]
+
 
 function App() {
   const generatorChain = pipe(
