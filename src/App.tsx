@@ -5,10 +5,7 @@ import textToIndexed from './text-handlers/text-to-indexed/textToIndexed';
 import AnimateText from './components/AnimateText'
 import stepSortIndexed from './generators/step-sort-indexed/stepSortIndexed';
 import generatorPipe from './operators/generatorPipe';
-
-const indexedToString = (indexed) => {
-  return indexed.map(el => el.value).join('')
-}
+import { indexedToString } from './utils/text';
 
 
 function App() {
