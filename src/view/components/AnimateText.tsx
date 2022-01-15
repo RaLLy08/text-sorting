@@ -20,7 +20,7 @@ const AnimateText = (props: PropsTypes) => {
 
         const update = () => {
             const onNextFrameResult = onNextFrame && onNextFrame(countRef.current)
-            const isFrame = typeof onNextFrameResult === 'string';
+            const isFrame = !!onNextFrameResult;
 
             if (isFrame) {
                 setFrame(onNextFrameResult);

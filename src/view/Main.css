@@ -1,3 +1,12 @@
 .wrapper {
-    
+    display: flex;
+    height: 100vh;
+}
+
+.wrapper__content {
+    margin: auto;
+}
+
+.content__field {
+    width:  fit-content;
 }

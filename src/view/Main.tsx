@@ -5,8 +5,10 @@ import textToIndexed from '../text-handlers/text-to-indexed/textToIndexed';
 import AnimateText from '../view/components/AnimateText'
 import stepSortIndexed from '../generators/step-sort-indexed/stepSortIndexed';
 import generatorPipe from '../operators/generatorPipe';
-import { indexedToString } from '../utils/text';
+import { indexedToString, splitByLength } from '../utils/text';
 
+const SYMBOLS_IN_ROW = 40;
+const FRAME_DELAY = 40;
 
 function Main() {
   const generatorChain = pipe(
@@ -15,20 +17,26 @@ function Main() {
     generatorPipe(
       stepSortIndexed('bubble')
     )
-  )('hello how are you?');
+  )('Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur, quo mollitia. Blanditiis porro reprehenderit eius? Nam, minus amet, fuga veritatis beatae a voluptas fugit error repellendus inventore modi ea enim.'); 
 
   return (
     <div className="wrapper">
-      <div className='field'>
-        <AnimateText frameDelay={100} onNextFrame={() => {
-          const result = generatorChain.next();
+      <div className='wrapper__content'>
+        <div className='content__field'>
+          <AnimateText frameDelay={FRAME_DELAY} onNextFrame={() => {
+            const result = generatorChain.next();
 
-          if (result.done) return;
+            if (result.done) return;
           
-          return indexedToString(result.value)
+            const splitted = splitByLength(indexedToString(result.value), SYMBOLS_IN_ROW)
+              
+            return splitted.map(el => {
 
-        }}/>
+              return <div style={{display: 'block'}}>{el}</div>
+            });
+          }}/>
 
+        </div>
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-import { indexedToString } from "./text";
+import { indexedToString, splitByLength } from "./text";
 
 test('indexed to text' , () => {
     const res = indexedToString([
@@ -17,4 +17,8 @@ test('indexed to text' , () => {
     ]); 
 
     expect(res).toBe('abc');
+});
+
+test('text length split', () => {
+    expect(splitByLength('abcd', 2)).toEqual(['ab', 'cd'])
 });
